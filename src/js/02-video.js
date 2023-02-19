@@ -12,16 +12,9 @@ const currentTime = throttle(function(data) {
         JSON.stringify(data.seconds));
 },1000 );
 
-
 player.on('timeupdate', currentTime);
 
-
-
-
-
-
 let startTime = Number(localStorage.getItem("videoplayer-current-time"))
-
 
 player.setCurrentTime(startTime).then(function(seconds) {
     // seconds = the actual time that the player seeked to
