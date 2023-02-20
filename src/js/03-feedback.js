@@ -22,7 +22,7 @@ form.addEventListener(`submit`, onSubmitForm);
 
 function onSubmitForm(event){
     event.preventDefault();
-    if (email.value === "" || textarea.value.trim() === "") {
+    if (textarea.value.trim() === "") {
         alert("Додайте будь ласка відгук")
         return
       }
