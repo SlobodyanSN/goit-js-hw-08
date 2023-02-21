@@ -17,7 +17,7 @@ function onDataForm (event) {
 localStorage.setItem("feedback-form-state", JSON.stringify(formData))
 };
 
-form.addEventListener(`input`, onDataForm);
+form.addEventListener(`input`, throttle(onDataForm ,500));
 form.addEventListener(`submit`, onSubmitForm);
 
 function onSubmitForm(event){
