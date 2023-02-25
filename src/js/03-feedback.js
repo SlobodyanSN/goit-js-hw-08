@@ -1,46 +1,50 @@
 import throttle from "lodash.throttle";
 
 const form = document.querySelector(`.feedback-form`);
-const textarea = document.querySelector(`textarea`)
-const email = document.querySelector(`input`)
+
+let formData ={}
+
 getDataLocalStorage()
-
-function onDataForm (event) {
-        const formElements = event.currentTarget.elements;
-      const email = formElements.email.value;
-      const message = formElements.message.value;
-      const formData = {
-        email,
-        message,
-      }; 
-
-localStorage.setItem("feedback-form-state", JSON.stringify(formData))
-};
 
 form.addEventListener(`input`, throttle(onDataForm ,500));
 form.addEventListener(`submit`, onSubmitForm);
 
+function onDataForm (event) {
+   
+    formData[event.target.name] = event.target.value;
+    
+localStorage.setItem("feedback-form-state", JSON.stringify(formData));
+};
+
 function onSubmitForm(event){
+
     event.preventDefault();
-    if (textarea.value.trim() === "") {
+
+    if (formData.email === "" || formData.message === "") {
         alert("Вкажіть Ваш email та додайте будь ласка відгук")
         return
       }
 
     event.currentTarget.reset();
 
-    localStorage.removeItem("feedback-form-state")
-};
+    localStorage.removeItem("feedback-form-state");
+
+       console.log(formData);
+
+       };
 
 function getDataLocalStorage(){
-    const savedString = localStorage.getItem("feedback-form-state");
-    if (savedString) {
-        const savedData = JSON.parse(savedString)
+    const savedStringFormData = localStorage.getItem("feedback-form-state");
+    if (savedStringFormData) {
+        const formData = JSON.parse(savedStringFormData)
+    
+     const arrFormData = Object.entries(formData);
 
-        textarea.value = savedData.message;
-
-        email.value = savedData.email
-
-        console.log(savedData);
-    }
+     arrFormData.forEach(([name, value]) =>{
+    form.elements[name].value = value;
+      }
+      );
+    };
 };
+
+
