@@ -29,8 +29,6 @@ function onSubmitForm(event){
 
     localStorage.removeItem("feedback-form-state");
 
-       console.log(formData);
-
        };
 
 function getDataLocalStorage(){
